@@ -7,6 +7,28 @@ class MenuItemsController < ApplicationController
     @menu_items = MenuItem.all
   end
 
+  def submit_order
+    @menu_items = MenuItem.all
+  end
+
+  def confirm_order
+    @sum=0
+    @menu_vals=params.permit(params.keys).to_h.select { |key, value| key.to_i.to_s == key }
+    @menu_vals.each do |key, val|
+      @sum+=MenuItem.find(key.to_i).price*val.to_i
+    end
+  end
+
+  def finalize_order
+    @order=Order.new
+    
+    params[:order].permit(params[:order].keys).to_h.each do |key, val|
+      @order.menu_items << MenuItem.find(key.to_i)
+    end
+    @order.save
+    redirect_to :menu_items, notice: 'Order successfully created.'
+  end
+
   # GET /menu_items/1
   # GET /menu_items/1.json
   def show
