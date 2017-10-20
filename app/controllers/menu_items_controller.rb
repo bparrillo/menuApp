@@ -26,6 +26,9 @@ class MenuItemsController < ApplicationController
       @order.menu_items << MenuItem.find(key.to_i)
     end
     @order.save
+    params[:order].permit(params[:order].keys).to_h.each do |key, val|
+      OrderItem.find_by(menu_item_id: key.to_i).update!(number: val.to_i)
+    end
     redirect_to :menu_items, notice: 'Order successfully created.'
   end
 
