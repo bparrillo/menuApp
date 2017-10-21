@@ -1,0 +1,4 @@
+<p>Your order costs <%= @sum %></p>
+
+<%= button_to "Confirm", action: "finalize_order", params: {order: @menu_vals} %>
+<%= link_to 'Back', menu_item_confirm_order_path %>
