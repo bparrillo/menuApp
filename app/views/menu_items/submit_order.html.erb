@@ -3,119 +3,19 @@
 <h1>Menu</h1>
 
 <%= form_tag(menu_item_confirm_order_path, method: :get) do %>
-  <h2>Appetizer</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% (@menu_items.select { |item| item.category=="appetizer"}).each do |menu_item| %>
-        <tr>
-          <td><%= menu_item.name %></td>
-          <td><%= menu_item.description %></td>
-          <td><%= menu_item.price %></td>
-          <td><%= label_tag :selection %>
-          <%= number_field_tag menu_item.id, 0, min: 0 %></td>
-          <td><%= link_to 'Show', menu_item, {class: "btn btn-default"} %></td>
-          <td><%= link_to 'Edit', edit_menu_item_path(menu_item), {class: "btn btn-default"} %></td>
-          <td><%= link_to('Destroy', menu_item, {method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-default"}) %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <%= render 'table', menu_item: @menu_item, title: "Appetizer", category: "appetizer" %>
 
   <br>
 
-  <h2>Entrees</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% (@menu_items.select { |item| item.category=="main_course"}).each do |menu_item| %>
-        <tr>
-          <td><%= menu_item.name %></td>
-          <td><%= menu_item.description %></td>
-          <td><%= menu_item.price %></td>
-          <td><%= label_tag :selection %>
-          <%= number_field_tag menu_item.id, 0, min: 0 %></td>
-          <td><%= link_to 'Show', menu_item %></td>
-          <td><%= link_to 'Edit', edit_menu_item_path(menu_item) %></td>
-          <td><%= link_to 'Destroy', menu_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <%= render 'table', menu_item: @menu_item, title: "Entrees", category: "main_course" %>
 
   <br>
 
-  <h2>Dessert</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% (@menu_items.select { |item| item.category=="dessert"}).each do |menu_item| %>
-        <tr>
-          <td><%= menu_item.name %></td>
-          <td><%= menu_item.description %></td>
-          <td><%= menu_item.price %></td>
-          <td><%= label_tag :selection %>
-          <%= number_field_tag menu_item.id, 0, min: 0 %></td>
-          <td><%= link_to 'Show', menu_item %></td>
-          <td><%= link_to 'Edit', edit_menu_item_path(menu_item) %></td>
-          <td><%= link_to 'Destroy', menu_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <%= render 'table', menu_item: @menu_item, title: "Dessert", category: "dessert" %>
 
   <br>
 
-  <h4>Sides</h4>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% (@menu_items.select { |item| item.category=="side"}).each do |menu_item| %>
-        <tr>
-          <td><%= menu_item.name %></td>
-          <td><%= menu_item.description %></td>
-          <td><%= menu_item.price %></td>
-          <td><%= label_tag :selection %>
-          <%= number_field_tag menu_item.id, 0, min: 0 %></td>
-          <td><%= link_to 'Show', menu_item %></td>
-          <td><%= link_to 'Edit', edit_menu_item_path(menu_item) %></td>
-          <td><%= link_to 'Destroy', menu_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <%= render 'table', menu_item: @menu_item, title: "Sides", category: "side" %>
   <%= submit_tag("Submit") %>
 <%end%>
 <br>
