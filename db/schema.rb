@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20171021233621) do
   end
 
   create_table "orders", force: :cascade do |t|
+    t.float    "tip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

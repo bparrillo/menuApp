@@ -27,6 +27,7 @@ class MenuItemsController < ApplicationController
       @sum+=MenuItem.find(key.to_i).price*val.to_i
     end
     @sum=(@sum*(1+BigDecimal.new(params[:tip]))).to_f
+    @tip=params[:tip]
   end
 
   def finalize_order
@@ -35,6 +36,7 @@ class MenuItemsController < ApplicationController
     params[:order].permit(params[:order].keys).to_h.each do |key, val|
       @order.menu_items << MenuItem.find(key.to_i)
     end
+    @order.tip=params[:tip]
     @order.save
     params[:order].permit(params[:order].keys).to_h.each do |key, val|
       OrderItem.find_by(menu_item_id: key.to_i).update!(number: val.to_i)
