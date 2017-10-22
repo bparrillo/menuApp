@@ -3,19 +3,19 @@
 <h1>Menu</h1>
 
 <%= form_tag(menu_item_confirm_order_path, method: :get) do %>
-  <%= render 'table', menu_item: @menu_item, title: "Appetizer", category: "appetizer" %>
+  <%= render 'table', menu_item: @menu_items, title: "Appetizer", category: "appetizer" %>
 
   <br>
 
-  <%= render 'table', menu_item: @menu_item, title: "Entrees", category: "main_course" %>
+  <%= render 'table', menu_item: @menu_items, title: "Entrees", category: "main_course" %>
 
   <br>
 
-  <%= render 'table', menu_item: @menu_item, title: "Dessert", category: "dessert" %>
+  <%= render 'table', menu_item: @menu_items, title: "Dessert", category: "dessert" %>
 
   <br>
 
-  <%= render 'table', menu_item: @menu_item, title: "Sides", category: "side" %>
+  <%= render 'table', menu_item: @menu_items, title: "Sides", category: "side" %>
   <%= submit_tag("Submit") %>
 <%end%>
 <br>

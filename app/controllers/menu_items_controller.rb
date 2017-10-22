@@ -16,7 +16,7 @@ class MenuItemsController < ApplicationController
     @sum = 0
     @menu_vals = params.permit(params.keys).to_h.select { |key, _value| key.to_i.to_s == key }
     @menu_vals.each do |key, val|
-      @sum += (BigDecimal.new(MenuItem.find(key.to_i).price, 4) * val.to_f).to_f
+      @sum += ((BigDecimal.new(MenuItem.find(key.to_i).price, 4) * val.to_f).to_f* 100).round / 100.0
     end
   end
 
@@ -41,8 +41,10 @@ class MenuItemsController < ApplicationController
       params[:order].permit(params[:order].keys).to_h.each do |key, val|
         OrderItem.find_by(menu_item_id: key.to_i).update!(number: val.to_i)
       end
-      redirect_to :menu_items, notice: 'Order successfully created.'
+      @menu_items = MenuItem.all
+      render :submit_order, notice: 'Order successfully created.'
     else
+      @menu_items = MenuItem.all
       render :submit_order, notice: 'Order not created, error.'
     end
   end
