@@ -1,7 +1,9 @@
 <p>Your order costs <%= @sum %></p>
 
 <%= button_to "Confirm", action: "finalize_order", params: {order: @menu_vals, tip: 0} %>
-<%= link_to "tip: 10%", action: "tip", params: {order: @menu_vals, tip: 0.1} %>
-<%= link_to "tip: 15%", action: "tip", params: {order: @menu_vals, tip: 0.15} %>
-<%= link_to "tip: 20%", action: "tip", params: {order: @menu_vals, tip: 0.2} %>
+<div>
+  <%= link_to "tip: 10%", action: "tip", params: {order: @menu_vals, tip: 0.1} %>
+  <%= link_to "tip: 15%", action: "tip", params: {order: @menu_vals, tip: 0.15} %>
+  <%= link_to "tip: 20%", action: "tip", params: {order: @menu_vals, tip: 0.2} %>
+</div>
 <%= link_to 'Back', menu_item_submit_order_path %>
