@@ -20,6 +20,15 @@ class MenuItemsController < ApplicationController
     end
   end
 
+  def tip
+    @sum=0
+    @menu_vals=params[:order].permit(params[:order].keys).to_h.select { |key, value| key.to_i.to_s == key }
+    @menu_vals.each do |key, val|
+      @sum+=MenuItem.find(key.to_i).price*val.to_i
+    end
+    @sum=(@sum*(1+BigDecimal.new(params[:tip]))).to_f
+  end
+
   def finalize_order
     @order=Order.new
     

@@ -36,6 +36,11 @@ RSpec.describe MenuItemsController, type: :controller do
     expect(assigns(:sum)).to eq(43)
   end
 
+  it "shows correct sum" do
+    get 'tip', params: { order: {"1" => 2, "2" => 3}, tip: 0.2}
+    expect(assigns(:sum)).to eq(51.6)
+  end
+
   it "creates order" do
     post 'finalize_order', params: { order: {"1" => 2, "2" => 3}}
     expect(Order.first.menu_items).to eq([MenuItem.first, MenuItem.second])
