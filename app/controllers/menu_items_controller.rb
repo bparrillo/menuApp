@@ -26,7 +26,7 @@ class MenuItemsController < ApplicationController
     @menu_vals.each do |key, val|
       @sum+=(BigDecimal.new(MenuItem.find(key.to_i).price,4)*val.to_f).to_f
     end
-    @sum=(@sum*(1+BigDecimal.new(params[:tip]))).to_f
+    @sum=((@sum*(1+BigDecimal.new(params[:tip]))).to_f*100).round/100.0
     @tip=params[:tip]
   end
 
