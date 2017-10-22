@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe MenuItemsController, type: :controller do
   before do
+    allow(subject).to receive(:authenticate_user!).and_return(User.first)
     item=MenuItem.new(name: "salad", description: "bad", price: 2, category: "dessert")
     item.save
     item2=MenuItem.new(name: "cake", description: "good", price: 13, category: "dessert")
