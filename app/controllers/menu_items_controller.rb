@@ -1,6 +1,6 @@
 class MenuItemsController < ApplicationController
-  before_action :set_menu_item, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_menu_item, only: %i[show edit update destroy]
+  before_action :authenticate_user!, only: %i[new create edit update destroy]
 
   # GET /menu_items
   # GET /menu_items.json
@@ -13,30 +13,30 @@ class MenuItemsController < ApplicationController
   end
 
   def confirm_order
-    @sum=0
-    @menu_vals=params.permit(params.keys).to_h.select { |key, value| key.to_i.to_s == key }
+    @sum = 0
+    @menu_vals = params.permit(params.keys).to_h.select { |key, _value| key.to_i.to_s == key }
     @menu_vals.each do |key, val|
-      @sum+=(BigDecimal.new(MenuItem.find(key.to_i).price,4)*val.to_f).to_f
+      @sum += (BigDecimal.new(MenuItem.find(key.to_i).price, 4) * val.to_f).to_f
     end
   end
 
   def tip
-    @sum=0
-    @menu_vals=params[:order].permit(params[:order].keys).to_h.select { |key, value| key.to_i.to_s == key }
+    @sum = 0
+    @menu_vals = params[:order].permit(params[:order].keys).to_h.select { |key, _value| key.to_i.to_s == key }
     @menu_vals.each do |key, val|
-      @sum+=(BigDecimal.new(MenuItem.find(key.to_i).price,4)*val.to_f).to_f
+      @sum += (BigDecimal.new(MenuItem.find(key.to_i).price, 4) * val.to_f).to_f
     end
-    @sum=((@sum*(1+BigDecimal.new(params[:tip]))).to_f*100).round/100.0
-    @tip=params[:tip]
+    @sum = ((@sum * (1 + BigDecimal.new(params[:tip]))).to_f * 100).round / 100.0
+    @tip = params[:tip]
   end
 
   def finalize_order
-    @order=Order.new
-    
-    params[:order].permit(params[:order].keys).to_h.each do |key, val|
+    @order = Order.new
+
+    params[:order].permit(params[:order].keys).to_h.each do |key, _val|
       @order.menu_items << MenuItem.find(key.to_i)
     end
-    @order.tip=params[:tip]
+    @order.tip = params[:tip]
     if @order.save
       params[:order].permit(params[:order].keys).to_h.each do |key, val|
         OrderItem.find_by(menu_item_id: key.to_i).update!(number: val.to_i)
@@ -49,8 +49,7 @@ class MenuItemsController < ApplicationController
 
   # GET /menu_items/1
   # GET /menu_items/1.json
-  def show
-  end
+  def show; end
 
   # GET /menu_items/new
   def new
@@ -58,8 +57,7 @@ class MenuItemsController < ApplicationController
   end
 
   # GET /menu_items/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /menu_items
   # POST /menu_items.json
@@ -102,13 +100,14 @@ class MenuItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_menu_item
-      @menu_item = MenuItem.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def menu_item_params
-      params.require(:menu_item).permit(:name, :description, :price, :category)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_menu_item
+    @menu_item = MenuItem.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def menu_item_params
+    params.require(:menu_item).permit(:name, :description, :price, :category)
+  end
 end

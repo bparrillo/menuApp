@@ -4,7 +4,7 @@
 
 <%= form_tag(menu_item_confirm_order_path, method: :get) do %>
   <h2>Appetizer</h2>
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <th>Name</th>
@@ -22,9 +22,9 @@
           <td><%= menu_item.price %></td>
           <td><%= label_tag :selection %>
           <%= number_field_tag menu_item.id, 0, min: 0 %></td>
-          <td><%= link_to 'Show', menu_item %></td>
-          <td><%= link_to 'Edit', edit_menu_item_path(menu_item) %></td>
-          <td><%= link_to 'Destroy', menu_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Show', menu_item, {class: "btn btn-default"} %></td>
+          <td><%= link_to 'Edit', edit_menu_item_path(menu_item), {class: "btn btn-default"} %></td>
+          <td><%= link_to('Destroy', menu_item, {method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-default"}) %></td>
         </tr>
       <% end %>
     </tbody>
@@ -32,8 +32,8 @@
 
   <br>
 
-  <h3>Entrees</h3>
-  <table>
+  <h2>Entrees</h2>
+  <table class="table">
     <thead>
       <tr>
         <th>Name</th>
@@ -61,8 +61,8 @@
 
   <br>
 
-  <h4>Dessert</h4>
-  <table>
+  <h2>Dessert</h2>
+  <table class="table">
     <thead>
       <tr>
         <th>Name</th>
@@ -91,7 +91,7 @@
   <br>
 
   <h4>Sides</h4>
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <th>Name</th>
