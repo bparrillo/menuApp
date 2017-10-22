@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :menu_items
 
   get '/menu_item/submit_order', to: 'menu_items#submit_order'
